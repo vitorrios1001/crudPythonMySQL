@@ -33,16 +33,14 @@
             </tr>
 
             {% for produto in produtos %}
-            <form action="{{ url_for('delete') }}" method="POST">
-                <tr>
-                    <td><input type="text" name="_id" value="{{ produto._id }}"></td>
-                    <td>{{ produto.desc }}</td>
-                    <td>{{ produto.qtdEstoque }}</td>
-                    <td>{{ produto.vlr }}</td>
-                    <td><a href="{{ url_for('list')}}" class="btn btn-primary" role="button">Editar</a></td>
-                    <td><input type="submit" class="btn btn-danger" role="button" value="X"></td>
-                </tr>
-            </form>
+            <tr>
+                <td>{{ produto._id }}</td>
+                <td>{{ produto.desc }}</td>
+                <td>{{ produto.qtdEstoque }}</td>
+                <td>{{ produto.vlr }}</td>
+                <td><a href="/update/{{ produto._id }}" class="btn btn-primary" role="button">Editar</a></td>
+                <td><a href="/delete/{{ produto._id }}" class="btn btn-danger">X</a></td>
+            </tr>
             {% endfor %}
         </table>
         <a href="{{  url_for('insert')}}" class="btn btn-success">Insert</a>
