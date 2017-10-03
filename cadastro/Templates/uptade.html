@@ -4,13 +4,28 @@
 <head>
     <title>Estoque</title>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
 </head>
 
 <body>
+    <div class="container">
+        <header>
+            <h1>Estoque</h1>
+            <hr>
+            <div>
+                <a href="{{ url_for('index')}}" class="btn btn-info" role="button">Inicio</a>
+                <a href="{{ url_for('insert')}}" class="btn btn-info" role="button">Cadastro</a>
+                <a href="{{ url_for('list')}}" class="btn btn-info" role="button">Produtos</a>
+            </div>
+            <br>
+        </header>
 
 
+
+    </div>
 </body>
 
 </html>

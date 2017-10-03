@@ -11,10 +11,10 @@ db = SQLAlchemy(app)
 class Produto(db.Model):
     __tablename__='produto'
 
-    _id = db.Column('id',db.Integer, primary_key=True, autoincrement=True)
-    desc = db.Column('desc',db.String(50))
-    qtdEstoque = db.Column('qtdEstoque',db.Integer)
-    vlr = db.Column('vlr',db.Float)
+    _id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    desc = db.Column(db.String(50))
+    qtdEstoque = db.Column(db.Integer)
+    vlr = db.Column(db.Float)
 
 
     def __init__(self, desc, qtdEstoque, vlr):
@@ -52,6 +52,23 @@ def list():
     produto = Produto.query.all()
 
     return render_template("list.html", produtos=produto)
+
+@app.route("/delete", methods=['GET', 'POST'])
+def delete():
+    if request.method == "POST": 
+
+        id = (request.form.get("_id")) 
+
+        if id:
+            p = Produto.query.filter_by(_id=id).first()
+            db.session.delete(p)
+            db.session.commit()   
+           
+        prod = Produto.query.all()
+    return redirect(url_for("list")) 
+
+    return render_template("list.html",produtos=prod)
+    
     
 
 if __name__ == "__main__":

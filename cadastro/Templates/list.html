@@ -4,29 +4,48 @@
 <head>
     <title>Estoque</title>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
 </head>
 
 <body>
-    <div>
-        <table>
+    <div class="container">
+        <header>
+            <h1>Estoque</h1>
+            <hr>
+            <div>
+                <a href="{{ url_for('index')}}" class="btn btn-info" role="button">Inicio</a>
+                <a href="{{ url_for('insert')}}" class="btn btn-info" role="button">Cadastro</a>
+                <a href="{{ url_for('list')}}" class="btn btn-info" role="button">Produtos</a>
+            </div>
+            <br>
+        </header>
+        <table class="table">
             <tr>
                 <th>ID</th>
                 <th>Nome do produto</th>
                 <th>Quantidade em Estoque</th>
                 <th>Valor do produto</th>
+                <th>Editar</th>
+                <th>Excluir</th>
             </tr>
+
             {% for produto in produtos %}
-            <tr>
-                <td>{{ produto.id }}</td>
-                <td>{{ produto.desc }}</td>
-                <td>{{ produto.qtdEstoque }}</td>
-                <td>{{ produto.vlr }}</td>
-            </tr>
+            <form action="{{ url_for('delete') }}" method="POST">
+                <tr>
+                    <td><input type="text" name="_id" value="{{ produto._id }}"></td>
+                    <td>{{ produto.desc }}</td>
+                    <td>{{ produto.qtdEstoque }}</td>
+                    <td>{{ produto.vlr }}</td>
+                    <td><a href="{{ url_for('list')}}" class="btn btn-primary" role="button">Editar</a></td>
+                    <td><input type="submit" class="btn btn-danger" role="button" value="X"></td>
+                </tr>
+            </form>
             {% endfor %}
         </table>
-        <a href="{{  url_for('insert')}}">Insert</a>
+        <a href="{{  url_for('insert')}}" class="btn btn-success">Insert</a>
     </div>
 
 </body>
