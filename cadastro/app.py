@@ -2,11 +2,24 @@ from flask import Flask, render_template, request, url_for, redirect
 
 from flask.ext.sqlalchemy import SQLAlchemy
 
+from sqlalchemy.orm import relationship
+
+
 app = Flask(__name__,template_folder='Templates')
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:root@localhost/crud'
 
 db = SQLAlchemy(app)
+
+class Categoria(db.Model):
+    __tablename__='catproduto'
+
+    _id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    desc = db.Column(db.String(50))
+
+    def __init__(self,desc):
+        self.desc = desc
+
 
 class Produto(db.Model):
     __tablename__='produto'
@@ -15,12 +28,14 @@ class Produto(db.Model):
     desc = db.Column(db.String(50))
     qtdEstoque = db.Column(db.Integer)
     vlr = db.Column(db.Float)
+    catProd = db.Column(db.Integer,db.ForeignKey('catproduto._id'),nullable=False)
 
 
-    def __init__(self, desc, qtdEstoque, vlr):
+    def __init__(self, desc, qtdEstoque, vlr, catProd):
         self.desc = desc
         self.qtdEstoque = qtdEstoque
         self.vlr = vlr
+        self.catProd = catProd
 
 db.create_all()
 
@@ -30,9 +45,10 @@ def index():
     return render_template("index.html")
 
 @app.route("/insert")
-def insert():
-    return render_template("insert.html")
+def insert():    
+    c = Categoria.query.all()
 
+    return render_template("insert.html", categorias=c)
 
     return render_template
 
@@ -42,9 +58,10 @@ def newInsert():
         desc = (request.form.get("desc"))
         qtdEstoque = (request.form.get("qtdEstoque"))
         vlr = (request.form.get("vlr"))
+        catProd = (request.form.get("catProd"))
 
-        if desc and qtdEstoque and vlr:
-            p = Produto(desc,qtdEstoque,vlr)
+        if desc and qtdEstoque and vlr and catProd:
+            p = Produto(desc,qtdEstoque,vlr,catProd)
             db.session.add(p)
             db.session.commit()
 

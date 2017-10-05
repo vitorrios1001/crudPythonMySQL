@@ -22,7 +22,7 @@
             <br>
         </header>
 
-
+        
         <form action="{{ url_for('newInsert') }}" method="POST">
             <div class="form-group row">
                 <div class="col-xs-4">
@@ -37,9 +37,18 @@
                     <label for="usr">Valor:</label>
                     <input type="text" class="form-control" name="vlr">
                 </div>
+                <div class="col-xs-2">
+                    <label for="usr">Grupo:</label>
+                    <select class="form-control" name="catProd">
+                        {% for categoria in categorias %}
+                            <option value="{{ categoria._id }}">{{ categoria.desc }}</option>                        
+                        {% endfor %}                        
+                    </select>
+                </div>
             </div>
             <input type="submit" class="btn btn-primary" value="Salvar">
         </form>
+        
     </div>
     </div>
 

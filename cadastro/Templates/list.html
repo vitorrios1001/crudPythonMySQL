@@ -28,6 +28,7 @@
                 <th>Nome do produto</th>
                 <th>Quantidade em Estoque</th>
                 <th>Valor do produto</th>
+                <th>Categoria</th>
                 <th>Editar</th>
                 <th>Excluir</th>
             </tr>
@@ -38,6 +39,7 @@
                 <td>{{ produto.desc }}</td>
                 <td>{{ produto.qtdEstoque }}</td>
                 <td>{{ produto.vlr }}</td>
+                <td>{{ produto.catProd }}</td>
                 <td><a href="/update/{{ produto._id }}" class="btn btn-primary" role="button">Editar</a></td>
                 <td><a href="/delete/{{ produto._id }}" class="btn btn-danger">X</a></td>
             </tr>
